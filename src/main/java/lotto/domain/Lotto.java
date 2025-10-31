@@ -5,6 +5,9 @@ import java.util.List;
 public class Lotto {
 
     private static final int LOTTO_SIZE = 6;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -18,6 +21,7 @@ public class Lotto {
         validateNullOrEmpty(numbers);
         validateSize(numbers);
         validateDistinct(numbers);
+        validateRange(numbers);
     }
 
     private static void validateNullOrEmpty(List<Integer> numbers) {
@@ -33,9 +37,21 @@ public class Lotto {
     }
 
     private static void validateDistinct(List<Integer> numbers) {
-        long distinctCount = numbers.stream().distinct().count();
+        long distinctCount = numbers.stream()
+                .distinct()
+                .count();
+
         if (distinctCount != LOTTO_SIZE) {
             throw new IllegalArgumentException("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+        }
+    }
+
+    private static void validateRange(List<Integer> numbers) {
+        boolean isOutOfRange = numbers.stream()
+                .anyMatch(num -> num < MIN_NUMBER || num > MAX_NUMBER);
+
+        if (isOutOfRange) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
     }
 
