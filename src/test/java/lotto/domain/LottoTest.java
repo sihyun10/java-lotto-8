@@ -6,6 +6,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoTest {
 
@@ -39,6 +41,17 @@ class LottoTest {
         assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 0, 46, 100})
+    @DisplayName("로또 번호가 1~45 범위를 벗어나면 예외가 발생한다.")
+    void 로또_번호가_1에서_45_범위를_벗어나면_예외가_발생한다(int invalidNumber) {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, invalidNumber);
+
+        assertThatThrownBy(() -> new Lotto(numbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
     }
 
     @DisplayName("로또 번호가 유효하면 정렬된 상태로 저장된다.")
