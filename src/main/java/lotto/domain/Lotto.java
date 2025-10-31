@@ -4,14 +4,13 @@ import static lotto.constant.ErrorMessage.DUPLICATED_NUMBER;
 import static lotto.constant.ErrorMessage.EMPTY_NUMBERS;
 import static lotto.constant.ErrorMessage.INVALID_SIZE;
 import static lotto.constant.ErrorMessage.OUT_OF_RANGE;
+import static lotto.constant.LottoConstants.LOTTO_SIZE;
+import static lotto.constant.LottoConstants.MAX_NUMBER;
+import static lotto.constant.LottoConstants.MIN_NUMBER;
 
 import java.util.List;
 
 public class Lotto {
-
-    private static final int LOTTO_SIZE = 6;
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
 
     private final List<Integer> numbers;
 

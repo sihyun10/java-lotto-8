@@ -1,15 +1,15 @@
 package lotto.domain;
 
+import static lotto.constant.LottoConstants.LOTTO_SIZE;
+import static lotto.constant.LottoConstants.MAX_NUMBER;
+import static lotto.constant.LottoConstants.MIN_NUMBER;
+
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 
 public class LottoNumberGenerator {
 
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
-    private static final int SIZE = 6;
-
     public List<Integer> generate() {
-        return Randoms.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, SIZE);
+        return Randoms.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, LOTTO_SIZE);
     }
 }
