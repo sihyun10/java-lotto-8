@@ -1,5 +1,10 @@
 package lotto.domain;
 
+import static lotto.constant.ErrorMessage.DUPLICATED_NUMBER;
+import static lotto.constant.ErrorMessage.EMPTY_NUMBERS;
+import static lotto.constant.ErrorMessage.INVALID_SIZE;
+import static lotto.constant.ErrorMessage.OUT_OF_RANGE;
+
 import java.util.List;
 
 public class Lotto {
@@ -26,13 +31,13 @@ public class Lotto {
 
     private static void validateNullOrEmpty(List<Integer> numbers) {
         if (numbers == null || numbers.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호가 비어 있습니다.");
+            throw new IllegalArgumentException(EMPTY_NUMBERS.getMessage());
         }
     }
 
     private static void validateSize(List<Integer> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException(INVALID_SIZE.getMessage());
         }
     }
 
@@ -42,7 +47,7 @@ public class Lotto {
                 .count();
 
         if (distinctCount != LOTTO_SIZE) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호에 중복된 숫자가 있습니다.");
+            throw new IllegalArgumentException(DUPLICATED_NUMBER.getMessage());
         }
     }
 
@@ -51,7 +56,7 @@ public class Lotto {
                 .anyMatch(num -> num < MIN_NUMBER || num > MAX_NUMBER);
 
         if (isOutOfRange) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            throw new IllegalArgumentException(OUT_OF_RANGE.getMessage());
         }
     }
 
