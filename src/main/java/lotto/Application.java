@@ -1,8 +1,6 @@
 package lotto;
 
-import java.util.List;
 import lotto.controller.LottoController;
-import lotto.domain.Lotto;
 import lotto.service.LottoPurchaseService;
 import lotto.service.calculator.LottoPurchaseCalculator;
 import lotto.util.LottoNumberGenerator;
@@ -18,6 +16,7 @@ public class Application {
         LottoPurchaseService purchaseService = new LottoPurchaseService(calculator, generator);
 
         LottoController controller = new LottoController(inputView, outputView, purchaseService);
-        List<Lotto> purchasedLottos = controller.purchaseLottoNumbers();
+        
+        controller.start();
     }
 }
