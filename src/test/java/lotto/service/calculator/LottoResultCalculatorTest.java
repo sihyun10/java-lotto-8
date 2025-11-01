@@ -1,4 +1,4 @@
-package lotto.service;
+package lotto.service.calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,7 +8,6 @@ import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.domain.WinningNumbers;
-import lotto.service.calculator.LottoResultCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
