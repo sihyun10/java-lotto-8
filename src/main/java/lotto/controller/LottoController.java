@@ -19,13 +19,19 @@ public class LottoController {
     }
 
     public List<Lotto> purchaseLottoNumbers() {
-        outputView.printPurchaseAmountRequest();
-        String inputAmount = inputView.readPurchaseAmount();
+        while (true) {
+            try {
+                outputView.printPurchaseAmountRequest();
+                String inputAmount = inputView.readPurchaseAmount();
 
-        List<Lotto> purchasedLottos = purchaseService.purchase(inputAmount);
-        outputView.printPurchaseCount(purchasedLottos.size());
-        outputView.printLottoNumbers(purchasedLottos);
+                List<Lotto> purchasedLottos = purchaseService.purchase(inputAmount);
+                outputView.printPurchaseCount(purchasedLottos.size());
+                outputView.printLottoNumbers(purchasedLottos);
 
-        return purchasedLottos;
+                return purchasedLottos;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
