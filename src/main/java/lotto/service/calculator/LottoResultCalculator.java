@@ -1,8 +1,12 @@
-package lotto.domain;
+package lotto.service.calculator;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lotto.domain.BonusNumber;
+import lotto.domain.Lotto;
+import lotto.domain.Rank;
+import lotto.domain.WinningNumbers;
 
 public class LottoResultCalculator {
 

@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.service.calculator;
 
 import static lotto.constant.ErrorMessage.EMPTY_PURCHASE_AMOUNT;
 import static lotto.constant.ErrorMessage.INVALID_PURCHASE_NUMBER;

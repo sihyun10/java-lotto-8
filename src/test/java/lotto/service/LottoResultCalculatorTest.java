@@ -1,9 +1,14 @@
-package lotto.domain;
+package lotto.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Map;
+import lotto.domain.BonusNumber;
+import lotto.domain.Lotto;
+import lotto.domain.Rank;
+import lotto.domain.WinningNumbers;
+import lotto.service.calculator.LottoResultCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

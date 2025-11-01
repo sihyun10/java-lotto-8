@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.service;
 
 import static lotto.constant.ErrorMessage.EMPTY_PURCHASE_AMOUNT;
 import static lotto.constant.ErrorMessage.INVALID_PURCHASE_NUMBER;
@@ -8,6 +8,7 @@ import static lotto.constant.ErrorMessage.ZERO_PURCHASE_AMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import lotto.service.calculator.LottoPurchaseCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
