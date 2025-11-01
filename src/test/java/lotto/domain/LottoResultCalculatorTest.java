@@ -15,8 +15,8 @@ class LottoResultCalculatorTest {
     @DisplayName("구매한 로또와 당첨,보너스 번호를 비교하여 등수별 당첨 개수를 계산한다.")
     void 당첨_개수_계산() {
         // given
-        Lotto winning = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        int bonusNumber = 7;
+        WinningNumbers winningNumbers = new WinningNumbers("1,2,3,4,5,6");
+        BonusNumber bonusNumber = new BonusNumber("7", winningNumbers);
 
         List<Lotto> purchased = List.of(
                 new Lotto(List.of(8, 21, 23, 41, 42, 43)),
@@ -30,7 +30,7 @@ class LottoResultCalculatorTest {
         );
 
         // when
-        Map<Rank, Long> result = calculator.calculateResult(purchased, winning, bonusNumber);
+        Map<Rank, Long> result = calculator.calculateResult(purchased, winningNumbers, bonusNumber);
 
         // then
         assertThat(result.get(Rank.FIRST)).isEqualTo(0);

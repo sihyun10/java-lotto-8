@@ -6,11 +6,13 @@ import java.util.Map;
 
 public class LottoResultCalculator {
 
-    public Map<Rank, Long> calculateResult(List<Lotto> purchased, Lotto winning, int bonusNumber) {
+    public Map<Rank, Long> calculateResult(List<Lotto> purchased,
+                                           WinningNumbers winningNumbers,
+                                           BonusNumber bonusNumber) {
         Map<Rank, Long> rankCount = initializeRankCount();
 
         for (Lotto lotto : purchased) {
-            Rank rank = Rank.of(lotto, winning, bonusNumber);
+            Rank rank = Rank.of(lotto, winningNumbers, bonusNumber);
             rankCount.put(rank, rankCount.get(rank) + 1);
         }
 
