@@ -1,5 +1,13 @@
 package lotto.view;
 
+import static lotto.constant.OutputMessage.BONUS_NUMBER_REQUEST;
+import static lotto.constant.OutputMessage.PROFIT_RATE;
+import static lotto.constant.OutputMessage.PURCHASE_AMOUNT_REQUEST;
+import static lotto.constant.OutputMessage.PURCHASE_COUNT;
+import static lotto.constant.OutputMessage.RESULT_DIVIDER;
+import static lotto.constant.OutputMessage.RESULT_HEADER;
+import static lotto.constant.OutputMessage.WINNING_NUMBER_REQUEST;
+
 import java.util.List;
 import java.util.Map;
 import lotto.domain.Lotto;
@@ -8,12 +16,12 @@ import lotto.domain.Rank;
 public class OutputView {
 
     public void printPurchaseAmountRequest() {
-        System.out.println("구입금액을 입력해 주세요.");
+        System.out.println(PURCHASE_AMOUNT_REQUEST.getMessage());
     }
 
     public void printPurchaseCount(int count) {
         printBlankLine();
-        System.out.printf("%d개를 구매했습니다.%n", count);
+        System.out.printf(PURCHASE_COUNT.getMessage(), count);
     }
 
     public void printLottoNumbers(List<Lotto> lottoNumbers) {
@@ -24,25 +32,25 @@ public class OutputView {
 
     public void printWinningNumberRequest() {
         printBlankLine();
-        System.out.println("당첨 번호를 입력해 주세요.");
+        System.out.println(WINNING_NUMBER_REQUEST.getMessage());
     }
 
     public void printBonusNumberRequest() {
         printBlankLine();
-        System.out.println("보너스 번호를 입력해 주세요.");
+        System.out.println(BONUS_NUMBER_REQUEST.getMessage());
     }
 
     public void printLottoResult(Map<Rank, Long> result, double profitRate) {
         printBlankLine();
-        System.out.println("당첨 통계");
-        System.out.println("---");
+        System.out.println(RESULT_HEADER.getMessage());
+        System.out.println(RESULT_DIVIDER.getMessage());
 
         for (Rank rank : Rank.printableRanks()) {
             Long count = result.get(rank);
             System.out.printf("%s - %d개%n", rank.getDisplayText(), count);
         }
 
-        System.out.printf("총 수익률은 %.1f%%입니다.", profitRate);
+        System.out.printf(PROFIT_RATE.getMessage(), profitRate);
     }
 
     public void printErrorMessage(String message) {
