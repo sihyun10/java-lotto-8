@@ -28,19 +28,19 @@ public class Lotto {
         validateRange(numbers);
     }
 
-    private static void validateNullOrEmpty(List<Integer> numbers) {
+    private void validateNullOrEmpty(List<Integer> numbers) {
         if (numbers == null || numbers.isEmpty()) {
             throw new IllegalArgumentException(EMPTY_NUMBERS.getMessage());
         }
     }
 
-    private static void validateSize(List<Integer> numbers) {
+    private void validateSize(List<Integer> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(INVALID_SIZE.getMessage());
         }
     }
 
-    private static void validateDistinct(List<Integer> numbers) {
+    private void validateDistinct(List<Integer> numbers) {
         long distinctCount = numbers.stream()
                 .distinct()
                 .count();
@@ -50,7 +50,7 @@ public class Lotto {
         }
     }
 
-    private static void validateRange(List<Integer> numbers) {
+    private void validateRange(List<Integer> numbers) {
         boolean isOutOfRange = numbers.stream()
                 .anyMatch(num -> num < MIN_NUMBER || num > MAX_NUMBER);
 
