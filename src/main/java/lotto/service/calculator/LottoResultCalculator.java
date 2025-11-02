@@ -10,6 +10,9 @@ import lotto.domain.WinningNumbers;
 
 public class LottoResultCalculator {
 
+    private static final int PERCENTAGE_MULTIPLIER = 100;
+    private static final int ROUNDING_SCALE = 10;
+
     public Map<Rank, Long> calculateResult(List<Lotto> purchased,
                                            WinningNumbers winningNumbers,
                                            BonusNumber bonusNumber) {
@@ -28,8 +31,8 @@ public class LottoResultCalculator {
                 .mapToLong(entry -> entry.getKey().getPrize() * entry.getValue())
                 .sum();
 
-        double rate = (double) totalPrize / purchaseAmount * 100;
-        return Math.round(rate * 10) / 10.0;
+        double rate = (double) totalPrize / purchaseAmount * PERCENTAGE_MULTIPLIER;
+        return Math.round(rate * ROUNDING_SCALE) / (double) ROUNDING_SCALE;
     }
 
     private Map<Rank, Long> initializeRankCount() {

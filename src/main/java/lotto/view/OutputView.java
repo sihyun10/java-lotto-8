@@ -42,7 +42,7 @@ public class OutputView {
             System.out.printf("%s - %d개%n", rank.getDisplayText(), count);
         }
 
-        System.out.printf("총 수익률은 %.1f%%입니다.%n", profitRate);
+        System.out.printf("총 수익률은 %.1f%%입니다.", profitRate);
     }
 
     private void printBlankLine() {
