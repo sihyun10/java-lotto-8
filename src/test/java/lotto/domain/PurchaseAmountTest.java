@@ -9,6 +9,7 @@ import static lotto.constant.LottoConstants.LOTTO_PRICE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import lotto.constant.ErrorMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -55,44 +56,40 @@ class PurchaseAmountTest {
         @ValueSource(strings = {"", "   ", "\n"})
         @DisplayName("입력값이 비어 있으면 예외가 발생한다.")
         void 비어있는_입력값(String input) {
-            assertThatThrownBy(() -> new PurchaseAmount(input))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(EMPTY_PURCHASE_AMOUNT.getMessage());
+            assertPurchaseAmountThrows(input, EMPTY_PURCHASE_AMOUNT);
         }
 
         @ParameterizedTest
         @ValueSource(strings = {"abc", "천원", "만원", "1,000", "1000원", "1_000"})
         @DisplayName("숫자가 아닌 값을 입력하면 예외가 발생한다.")
         void 숫자가_아닌_입력값(String input) {
-            assertThatThrownBy(() -> new PurchaseAmount(input))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(INVALID_PURCHASE_NUMBER.getMessage());
+            assertPurchaseAmountThrows(input, INVALID_PURCHASE_NUMBER);
         }
 
         @Test
         @DisplayName("구입 금액을 0원을 입력하면 예외가 발생한다.")
         void 입력값_0원() {
-            assertThatThrownBy(() -> new PurchaseAmount("0"))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(ZERO_PURCHASE_AMOUNT.getMessage());
+            assertPurchaseAmountThrows("0", ZERO_PURCHASE_AMOUNT);
         }
 
         @ParameterizedTest
         @ValueSource(strings = {"-1000", "-5000"})
         @DisplayName("음수 값을 입력하면 예외가 발생한다.")
         void 음수_입력값(String input) {
-            assertThatThrownBy(() -> new PurchaseAmount(input))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(NEGATIVE_PURCHASE_AMOUNT.getMessage());
+            assertPurchaseAmountThrows(input, NEGATIVE_PURCHASE_AMOUNT);
         }
 
         @ParameterizedTest
         @ValueSource(strings = {"800", "1500", "999", "2500", "12345"})
         @DisplayName("1,000원 단위로 나누어떨어지지 않으면 예외가 발생한다.")
         void 천원단위가_아닌_입력값(String input) {
+            assertPurchaseAmountThrows(input, NOT_DIVISIBLE_BY_UNIT);
+        }
+
+        private void assertPurchaseAmountThrows(String input, ErrorMessage expected) {
             assertThatThrownBy(() -> new PurchaseAmount(input))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(NOT_DIVISIBLE_BY_UNIT.getMessage());
+                    .hasMessage(expected.getMessage());
         }
     }
 }
