@@ -32,7 +32,7 @@ public class LottoResultCalculator {
                 .sum();
 
         double rate = (double) totalPrize / purchaseAmount * PERCENTAGE_MULTIPLIER;
-        return Math.round(rate * ROUNDING_SCALE) / (double) ROUNDING_SCALE;
+        return roundToScale(rate);
     }
 
     private Map<Rank, Long> initializeRankCount() {
@@ -41,5 +41,9 @@ public class LottoResultCalculator {
             map.put(rank, 0L);
         }
         return map;
+    }
+
+    private static double roundToScale(double rate) {
+        return Math.round(rate * ROUNDING_SCALE) / (double) ROUNDING_SCALE;
     }
 }
