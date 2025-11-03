@@ -109,3 +109,17 @@
 - 잘못된 값을 입력할 경우 `IllegalArgumentException`을 발생
 - "[ERROR]"로 시작하는 에러 메시지를 출력
 - 그 부분부터 입력을 다시 받는다.
+
+---
+
+## (최종) 로또 발매기 시스템 전체 흐름
+
+![최종 로또 발매기 흐름](./assets/final_lotto_machine_flow.jpg)
+
+**전체 흐름**
+
+1. 사용자가 구매 금액을 입력하면 `PurchaseAmount`가 검증하고, 금액에 맞는 로또 개수를 계산한다.
+2. `LottoNumberGenerator`가 랜덤한 번호를 생성해 로또를 발행한다.
+3. 사용자가 당첨 번호와 보너스 번호를 입력하면 각각 `WinningNumbers`, `BonusNumber`가 검증을 수행한다.
+4. `LottoResultService`가 모든 로또의 **당첨 결과**와 **수익률**을 계산한다.
+5. `OutputView`가 등수별 결과와 총 수익률을 출력한다.
