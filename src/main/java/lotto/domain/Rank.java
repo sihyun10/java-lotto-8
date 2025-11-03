@@ -37,9 +37,17 @@ public enum Rank {
 
     public static Rank of(Lotto lotto, WinningNumbers winningNumbers, BonusNumber bonusNumber) {
         int matchCount = winningNumbers.countMatch(lotto);
-        boolean bonusMatch = lotto.numbers().stream()
-                .anyMatch(bonusNumber::isSameAs);
+        boolean bonusMatch = isBonusMatch(lotto, bonusNumber);
 
+        return getRank(matchCount, bonusMatch);
+    }
+
+    private static boolean isBonusMatch(Lotto lotto, BonusNumber bonusNumber) {
+        return lotto.numbers().stream()
+                .anyMatch(bonusNumber::isSameAs);
+    }
+
+    private static Rank getRank(int matchCount, boolean bonusMatch) {
         if (matchCount == 6) {
             return FIRST;
         }
