@@ -3,22 +3,20 @@ package lotto.service;
 import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.Lotto;
-import lotto.service.calculator.LottoPurchaseCalculator;
+import lotto.domain.PurchaseAmount;
 import lotto.util.LottoNumberGenerator;
 
 public class LottoPurchaseService {
 
-    private final LottoPurchaseCalculator purchaseCalculator;
     private final LottoNumberGenerator numberGenerator;
 
-    public LottoPurchaseService(LottoPurchaseCalculator purchaseCalculator,
-                                LottoNumberGenerator numberGenerator) {
-        this.purchaseCalculator = purchaseCalculator;
+    public LottoPurchaseService(LottoNumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
     }
 
     public List<Lotto> purchase(String inputAmount) {
-        int lottoCount = purchaseCalculator.calculateCount(inputAmount);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(inputAmount);
+        int lottoCount = purchaseAmount.calculateLottoCount();
         return generateLotto(lottoCount);
     }
 

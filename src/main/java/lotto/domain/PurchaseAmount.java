@@ -1,4 +1,4 @@
-package lotto.service.calculator;
+package lotto.domain;
 
 import static lotto.constant.ErrorMessage.EMPTY_PURCHASE_AMOUNT;
 import static lotto.constant.ErrorMessage.INVALID_PURCHASE_NUMBER;
@@ -7,17 +7,20 @@ import static lotto.constant.ErrorMessage.NOT_DIVISIBLE_BY_UNIT;
 import static lotto.constant.ErrorMessage.ZERO_PURCHASE_AMOUNT;
 import static lotto.constant.LottoConstants.LOTTO_PRICE;
 
-public class LottoPurchaseCalculator {
+public class PurchaseAmount {
 
-    public int calculateCount(String inputAmount) {
+    private final int amount;
+
+    public PurchaseAmount(String inputAmount) {
         validateEmpty(inputAmount);
 
-        int amount = parseToInt(inputAmount);
-        validateZero(amount);
-        validateNegative(amount);
-        validateDivisible(amount);
+        int parsedAmount = parseToInt(inputAmount);
+        validateAmountRules(parsedAmount);
+        this.amount = parsedAmount;
+    }
 
-        return amount / LOTTO_PRICE;
+    public int calculateLottoCount() {
+        return this.amount / LOTTO_PRICE;
     }
 
     private void validateEmpty(String input) {
@@ -32,6 +35,12 @@ public class LottoPurchaseCalculator {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(INVALID_PURCHASE_NUMBER.getMessage());
         }
+    }
+
+    private void validateAmountRules(int amount) {
+        validateZero(amount);
+        validateNegative(amount);
+        validateDivisible(amount);
     }
 
     private void validateZero(int amount) {

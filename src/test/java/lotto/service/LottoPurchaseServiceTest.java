@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import lotto.domain.Lotto;
-import lotto.service.calculator.LottoPurchaseCalculator;
 import lotto.util.LottoNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,9 +15,8 @@ class LottoPurchaseServiceTest {
 
     @BeforeEach
     void setUp() {
-        FakePurchaseCalculator fakePurchaseCalculator = new FakePurchaseCalculator();
         FakeNumberGenerator fakeNumberGenerator = new FakeNumberGenerator();
-        purchaseService = new LottoPurchaseService(fakePurchaseCalculator, fakeNumberGenerator);
+        purchaseService = new LottoPurchaseService(fakeNumberGenerator);
     }
 
     @Test
@@ -28,13 +26,6 @@ class LottoPurchaseServiceTest {
 
         assertThat(result).hasSize(3);
         assertThat(result.getFirst().numbers()).containsExactly(17, 19, 29, 34, 39, 40);
-    }
-
-    static class FakePurchaseCalculator extends LottoPurchaseCalculator {
-        @Override
-        public int calculateCount(String inputAmount) {
-            return Integer.parseInt(inputAmount) / 1000;
-        }
     }
 
     static class FakeNumberGenerator extends LottoNumberGenerator {
