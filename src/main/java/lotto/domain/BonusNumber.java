@@ -31,7 +31,7 @@ public class BonusNumber {
 
     private void validateNumeric(String input) {
         try {
-            Integer.parseInt(input.trim());
+            parseNumber(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(INVALID_BONUS_NUMBER.getMessage());
         }
