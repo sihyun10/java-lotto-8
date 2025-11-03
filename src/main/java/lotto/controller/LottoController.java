@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
+import java.util.function.Supplier;
 import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.LottoGameResult;
@@ -31,37 +32,35 @@ public class LottoController {
     }
 
     private List<Lotto> requestPurchase() {
-        while (true) {
-            try {
-                outputView.printPurchaseAmountRequest();
-                String amount = inputView.readPurchaseAmount();
+        return retryUntilSuccess(() -> {
+            outputView.printPurchaseAmountRequest();
+            String amount = inputView.readPurchaseAmount();
 
-                List<Lotto> purchased = lottoGameService.purchaseLotto(amount);
-                outputView.printPurchaseCount(purchased.size());
-                outputView.printLottoNumbers(purchased);
-                return purchased;
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+            List<Lotto> purchased = lottoGameService.purchaseLotto(amount);
+            outputView.printPurchaseCount(purchased.size());
+            outputView.printLottoNumbers(purchased);
+            return purchased;
+        });
     }
 
     private WinningNumbers requestWinningNumbers() {
-        while (true) {
-            try {
-                outputView.printWinningNumberRequest();
-                return new WinningNumbers(inputView.readWinningNumbers());
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
-        }
+        return retryUntilSuccess(() -> {
+            outputView.printWinningNumberRequest();
+            return new WinningNumbers(inputView.readWinningNumbers());
+        });
     }
 
     private BonusNumber requestBonusNumber(WinningNumbers winningNumbers) {
+        return retryUntilSuccess(() -> {
+            outputView.printBonusNumberRequest();
+            return new BonusNumber(inputView.readBonusNumber(), winningNumbers);
+        });
+    }
+
+    private <T> T retryUntilSuccess(Supplier<T> supplier) {
         while (true) {
             try {
-                outputView.printBonusNumberRequest();
-                return new BonusNumber(inputView.readBonusNumber(), winningNumbers);
+                return supplier.get();
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
